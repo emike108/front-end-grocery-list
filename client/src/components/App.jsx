@@ -7,18 +7,39 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groceriesData: groceriesData
+      groceriesData: groceriesData,
+      item: '',
+      quantity: ''
     }
 
     this.deleteClick = this.deleteClick.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.addGrocery = this.addGrocery.bind(this);
+  }
+
+  handleInput(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+      // item: console.log(event)
+    })
+  }
+
+  addGrocery(event) {
+    event.preventDefault();
+    // console.log('you clicked submit', event);
+    if (!this.state.item || !this.state.quantity) {
+      alert('Whoops, you forgot to enter something!')
+    } else {
+      this.setState({
+        groceriesData: [...this.state.groceriesData, {name: this.state.item, quantity: this.state.quantity}],
+        item: '',
+        quantity: ''
+      })
+    }
   }
 
   deleteClick(name) {
-    // event.preventDefault();
-    //look at what item the click even occured
-    //delete that item from the data
     this.setState({groceriesData: this.state.groceriesData.filter(item => item.name !== name)});
-    // console.log('delete click', event, name);
   }
 
 
@@ -29,12 +50,12 @@ class App extends React.Component {
         <h1>Grocery List</h1>
         <form>
           <label> Item
-            <input name="item" value="" />
+            <input name="item" value={this.state.item} onChange={this.handleInput} />
           </label>
           <label> Quantity
-            <input name="quantity" value="" />
+            <input name="quantity" value={this.state.quantity} onChange={this.handleInput}/>
           </label>
-          <button>Add Grocery</button>
+          <button onClick={this.addGrocery}>Add Grocery</button>
         </form>
           <GroceryList groceries={this.state.groceriesData} deleteClick={this.deleteClick} />
       </div>
