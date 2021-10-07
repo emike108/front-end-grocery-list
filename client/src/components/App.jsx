@@ -1,3 +1,6 @@
+import React from 'react';
+import ReacDOM from 'react-dom';
+
 const App = () => (
   <div>
     <img src="grocery-bags.png" />
