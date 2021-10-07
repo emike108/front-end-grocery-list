@@ -1,5 +1,7 @@
 import React from 'react';
 import ReacDOM from 'react-dom';
+import GroceryList from './GroceryList.jsx';
+import groceriesData from '../data/groceriesData.js';
 
 const App = () => (
   <div>
@@ -13,19 +15,7 @@ const App = () => (
         <input name="quantity" value="" />
       </label>
       <button>Add Grocery</button>
-      <ul className="groceries">
-        <li>
-          <span>apples - </span>
-          <span>4</span>
-        </li>
-        <li>
-          <span>bread - </span>
-          <span>2</span>
-        </li>
-        <li>
-          <span>etc...</span>
-        </li>
-      </ul>
+      <GroceryList groceries={groceriesData} />
     </form>
   </div>
 );
